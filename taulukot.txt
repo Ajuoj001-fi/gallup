@@ -1,0 +1,45 @@
+CREATE TABLE users (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  username varchar(50) NOT NULL,
+  pass varchar(200) NOT NULL,
+  user_level int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE gallups (
+  gallup_id int(11) NOT NULL AUTO_INCREMENT,
+  active tinyint NOT NULL DEFAULT 0,
+  start_date varchar(50) NOT NULL,
+  end_date varchar(200) NOT NULL,
+  question varchar(200) NOT NULL,
+  answer1 varchar(200) NOT NULL,
+  answer2 varchar(200) NOT NULL,
+  answer3 varchar(200),
+  PRIMARY KEY (gallup_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE answers (
+  answer_id int(11) NOT NULL AUTO_INCREMENT,
+  user_key varchar(50) NOT NULL,
+  question_id int(11) NOT NULL REFERENCES gallups(gallup_id),
+  answer tinyint NOT NULL,
+  PRIMARY KEY (answer_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO gallups (start_date, end_date, question, answer1, answer2,answer3)
+VALUES ('01-02-2020','02-02-2020','oliko kivaa?','kyllä','ei',NULL);
+
+INSERT INTO gallups (start_date, end_date, question, answer1, answer2,answer3)
+VALUES ('01-02-2020','02-02-2020','oliko kivaa?','kyllä','ei',NULL);
+
+INSERT INTO answers (user_key, question_id, answer) 
+VALUES('adaf334d', 1, 1);
+
+INSERT INTO users(username,pass,user_level)
+VALUES('admin','adcabd9eb2d9bac4ce934aad144334a36458a072841cbbcfbbcc03f48d5414f3de919ca899a90e93ae110fa5b993026b6aa135c16378079bf9c424984d617795',1);
+
+INSERT INTO users(username,pass,user_level) 
+VALUES('testi','ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff',0);
+
+admin - admin2020!
+testi - testi
