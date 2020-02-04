@@ -26,14 +26,29 @@ CREATE TABLE answers (
   PRIMARY KEY (answer_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO gallups (start_date, end_date, question, answer1, answer2,answer3)
-VALUES ('01-02-2020','02-02-2020','oliko kivaa?','kyllä','ei',NULL);
+INSERT INTO gallups (active, start_date, end_date, question, answer1, answer2,answer3)
+VALUES (0,'01-02-2020','01-02-2020','Kuka voittaa euroviisut?','Suomi','Ruotsi','Joku muu...');
 
-INSERT INTO gallups (start_date, end_date, question, answer1, answer2,answer3)
-VALUES ('01-02-2020','02-02-2020','oliko kivaa?','kyllä','ei',NULL);
+INSERT INTO gallups (active, start_date, end_date, question, answer1, answer2,answer3)
+VALUES (1,'02-02-2020','04-02-2020','Onko koulussa kivaa?','kyllä','ei',NULL);
 
 INSERT INTO answers (user_key, question_id, answer) 
-VALUES('adaf334d', 1, 1);
+VALUES('aaa', 1, 1);
+INSERT INTO answers (user_key, question_id, answer) 
+VALUES('vvvv', 1, 2);
+INSERT INTO answers (user_key, question_id, answer) 
+VALUES('ssss', 1, 2);
+INSERT INTO answers (user_key, question_id, answer) 
+VALUES('dddd', 1, 3);
+
+INSERT INTO answers (user_key, question_id, answer) 
+VALUES('aaa', 2, 1);
+INSERT INTO answers (user_key, question_id, answer) 
+VALUES('vvvv', 2, 2);
+INSERT INTO answers (user_key, question_id, answer) 
+VALUES('ssss', 2, 2);
+INSERT INTO answers (user_key, question_id, answer) 
+VALUES('dddd', 2, 1);
 
 INSERT INTO users(username,pass,user_level)
 VALUES('admin','adcabd9eb2d9bac4ce934aad144334a36458a072841cbbcfbbcc03f48d5414f3de919ca899a90e93ae110fa5b993026b6aa135c16378079bf9c424984d617795',1);
