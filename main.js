@@ -5,9 +5,7 @@ const server = restify.createServer({
 });
 
 const gallups = require("./models/gallups");
-const portti = (process.env.PORT || 3000 , function(){
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-  });
+const portti = (process.env.PORT || 3000);
 
 server.pre(restify.pre.sanitizePath()); 
 server.use(restify.plugins.bodyParser());

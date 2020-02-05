@@ -1,10 +1,11 @@
 mysql = require("mysql");
+//mysql://b79a663c3fae1b:14dc545c@eu-cdbr-west-02.cleardb.net/heroku_4f5a858fa0ca67d?reconnect=true
 
 const connection = mysql.createConnection({
-    host     : "miettii.net",
-    user     : "miettiin_vieras",
-    password : ",Nh^D{9LEUO6",
-    database : "miettiin_juoja"
+    host     : "eu-cdbr-west-02.cleardb.net",
+    user     : "b79a663c3fae1b",
+    password : "14dc545c",
+    database : "heroku_4f5a858fa0ca67d"
 });
 
 connection.connect((err) => {
