@@ -1,5 +1,5 @@
 CREATE TABLE users (
-  id int(11) NOT NULL AUTO_INCREMENT,
+  id int(11) AUTO_INCREMENT,
   username varchar(50) NOT NULL,
   pass varchar(200) NOT NULL,
   user_level int(11) NOT NULL DEFAULT '0',
@@ -7,7 +7,7 @@ CREATE TABLE users (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE gallups (
-  gallup_id int(11) NOT NULL AUTO_INCREMENT,
+  gallup_id int(11) AUTO_INCREMENT,
   active tinyint NOT NULL DEFAULT 0,
   start_date varchar(50) NOT NULL,
   end_date varchar(200) NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE gallups (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE answers (
-  answer_id int(11) NOT NULL AUTO_INCREMENT,
+  answer_id int(11) AUTO_INCREMENT,
   user_key varchar(50) NOT NULL,
   question_id int(11) NOT NULL REFERENCES gallups(gallup_id),
   answer tinyint NOT NULL,
@@ -42,13 +42,13 @@ INSERT INTO answers (user_key, question_id, answer)
 VALUES('dddd', 1, 3);
 
 INSERT INTO answers (user_key, question_id, answer) 
-VALUES('aaa', 2, 1);
+VALUES('aaa', 11, 1);
 INSERT INTO answers (user_key, question_id, answer) 
-VALUES('vvvv', 2, 2);
+VALUES('vvvv', 11, 2);
 INSERT INTO answers (user_key, question_id, answer) 
-VALUES('ssss', 2, 2);
+VALUES('ssss', 11, 2);
 INSERT INTO answers (user_key, question_id, answer) 
-VALUES('dddd', 2, 1);
+VALUES('dddd', 11, 1);
 
 INSERT INTO users(username,pass,user_level)
 VALUES('admin','adcabd9eb2d9bac4ce934aad144334a36458a072841cbbcfbbcc03f48d5414f3de919ca899a90e93ae110fa5b993026b6aa135c16378079bf9c424984d617795',1);
