@@ -5,7 +5,7 @@ const server = restify.createServer({
 });
 
 const gallups = require("./models/gallups");
-const portti = (process.env.portti || 3000);
+const PORT = (process.env.PORT || 3000);
 
 server.pre(restify.pre.sanitizePath()); 
 server.use(restify.plugins.bodyParser());
@@ -70,7 +70,7 @@ server.get("/status", (req,res,next) => {
 
 });
 
-server.listen(portti, () =>{
+server.listen(PORT, () =>{
 
     console.log(`Palvelin käynnistyi porttiin ${portti}`);
 });
