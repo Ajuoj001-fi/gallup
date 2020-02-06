@@ -72,5 +72,5 @@ server.get("/status", (req,res,next) => {
 
 server.listen(PORT, () =>{
 
-    console.log(`Palvelin käynnistyi porttiin ${portti}`);
+    console.log(`Palvelin käynnistyi porttiin ${PORT}`);
 });
