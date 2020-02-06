@@ -5,7 +5,7 @@ const server = restify.createServer({
 });
 
 const gallups = require("./models/gallups");
-const portti = (process.env.port || 3000);
+const portti = (process.env.portti || 3000);
 
 server.pre(restify.pre.sanitizePath()); 
 server.use(restify.plugins.bodyParser());
