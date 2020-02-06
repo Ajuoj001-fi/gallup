@@ -38,7 +38,7 @@ server.post("/answer", (req,res,next) => {
 
 server.get("/", (req,res,next) => {
 
-    let body = "<b>/gallup</b> will return JSON  <br> <b>/answer</b> will take .POST {'question_id' : INT, 'answer' : STRING} <br> <b>/status</b> will return the voting situation {answer1: INT,answer2: INT,answer3: INT}";
+    let body = "<b>/gallup</b> will return JSON  <br> <b>/answer</b> will take .POST {'question_id' : INT, 'answer' : STRING} <br> <b>/status</b> will return the voting situation {answer1: INT,answer2: INT,answer3: INT} <br><br> /allquestions and /allanswers";
     res.writeHead(200, {
         'Content-Length': Buffer.byteLength(body),
         'Content-Type': 'text/html'
@@ -47,19 +47,31 @@ server.get("/", (req,res,next) => {
     res.end();    
 });
 
+server.get("/allquestions", (req,res,next) => {
+
+    gallups.allQuestions((err,data) => {
+        res.send(data);
+    });
+});
+
+server.get("/allanswers", (req,res,next) => {
+
+    gallups.allAnswers((err,data) => {
+        res.send(data);
+    });
+});
+
 server.get("/gallup", (req,res,next) => {
 
     gallups.getQuestion((err,data) => {
         res.send(data);
     });
-    
 });
 
 server.get("/create", (req,res,next) => {
     gallups.create((err,data) => {
         res.send("ok");
     });
-    
 });
 
 server.get("/status", (req,res,next) => {
@@ -67,7 +79,6 @@ server.get("/status", (req,res,next) => {
     gallups.getStatus((err,data) => {
         res.send(data);
     });
-
 });
 
 server.listen(PORT, () =>{

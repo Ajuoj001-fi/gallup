@@ -42,6 +42,20 @@ module.exports = {
                                             });
     },
 
+    "allQuestions" : (callback) => {
+        let sql = `SELECT * FROM gallups`;
+        connection.query(sql, (err, data) => {
+                                                callback(err, data);
+                                            });
+    },
+
+    "allAnswers" : (callback) => {
+        let sql = `SELECT answer, question_id FROM gallups`;
+        connection.query(sql, (err, data) => {
+                                                callback(err, data);
+                                            });
+    },
+
     "getStatus" : (callback) => {
         let findActive = `SELECT gallup_id AS id FROM gallups WHERE active = 1`;
         let sql = `SELECT answer, COUNT(*) as total FROM answers WHERE question_id = ? GROUP BY answer`;
