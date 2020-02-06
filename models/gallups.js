@@ -9,16 +9,30 @@ const connection = mysql.createConnection({
     database : "heroku_4f5a858fa0ca67d"
 });
 
-connection.connect((err) => {
-if(!err) {
-console.log("Connection ready");    
-} else {
-throw `Cannot connect to database: ${err}`;    
-}
-});
+handleDisconnect = () => {
 
+    connection.connect((err) => {
+        if(!err) {
+        console.log("Connection ready");    
+        } else {
+        throw `Cannot connect to database: ${err}`;    
+        }
+    });
+
+    connection.on('error', (err) => {
+        if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+          handleDisconnect();                         
+        } else {                                      
+          throw err;                                  
+        }
+      });
+}
+
+handleDisconnect();
 
 module.exports = {
+
+
 
     "getQuestion" : (callback) => {
         let sql = `SELECT * FROM gallups WHERE active = 1`;
