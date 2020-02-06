@@ -50,7 +50,7 @@ module.exports = {
     },
 
     "allAnswers" : (callback) => {
-        let sql = `SELECT answer, question_id FROM gallups`;
+        let sql = `SELECT answer, question_id FROM answers`;
         connection.query(sql, (err, data) => {
                                                 callback(err, data);
                                             });
