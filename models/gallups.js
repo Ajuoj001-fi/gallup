@@ -9,26 +9,27 @@ const connection = mysql.createConnection({
     database : "heroku_4f5a858fa0ca67d"
 });
 
+
 handleDisconnect = () => {
 
-    connection.connect((err) => {
-        if(!err) {
-        console.log("Connection ready");    
-        } else {
-        throw `Cannot connect to database: ${err}`;    
-        }
-    });
-
     connection.on('error', (err) => {
-        if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
-          handleDisconnect();                         
-        } else {                                      
-          throw err;                                  
+        if (!err.fatal) {
+          return;
         }
-      });
+    
+        if (err.code !== 'PROTOCOL_CONNECTION_LOST') {
+          throw err;
+        }
+    
+        console.log('Re-connecting lost connection: ' + err.stack);
+    
+        connection = mysql.createConnection(connection.config);
+        handleDisconnect(connection);
+        connection.connect();
+    });
 }
 
-handleDisconnect();
+handleDisconnect(connection);
 
 module.exports = {
 
