@@ -13,6 +13,7 @@ const server = restify.createServer({
 
 const gallups = require("./models/gallups");
 const PORT = (process.env.PORT || 3000);
+const salt = 'xaxf230x>x!_!';
 
 server.pre(restify.pre.sanitizePath()); 
 server.pre(cors.preflight);
@@ -93,6 +94,23 @@ server.get("/status", (req,res,next) => {
         res.send(data);
     });
 });
+
+server.post("/login", (req,res,next) => {
+    let pass = crypto.createHash("SHA512").update(req.body.pass).digest("hex");
+    let sqlpass;
+
+    gallups.login(req.body.user,(err,data) => {
+        sqlpass = data[0].pass;
+
+        if(sqlpass == pass){
+            let access = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex");
+            res.send(access);
+        } else {
+            res.send("error");
+        } 
+    });
+});
+
 
 server.listen(PORT, () =>{
 

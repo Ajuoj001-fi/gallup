@@ -80,4 +80,11 @@ module.exports = {
                                                         callback(err);
                                                     });
     },
+
+    "login" : (user,callback) => {
+        let sql = `SELECT * FROM users WHERE username = ?`;
+        connection.query(sql,[user],(err,data)=> {
+                                                        callback(err,data);
+                                                    });
+    }
 };
