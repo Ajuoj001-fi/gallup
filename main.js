@@ -96,12 +96,11 @@ server.get("/status", (req,res,next) => {
 });
 
 server.post("/login", (req,res,next) => {
-    let user = "";
-    let pass = "";
-    pass = crypto.createHash("SHA512").update(req.body.pass).digest("hex");
+    let user = req.body.user ? req.body.user : "";
+    let pass = crypto.createHash("SHA512").update(req.body.pass).digest("hex") ? req.body.pass : "";
     let sqlpass;
 
-    gallups.login(req.body.user,(err,data) => {
+    gallups.login(user,(err,data) => {
         sqlpass = data[0].pass;
 
         if(sqlpass == pass){
