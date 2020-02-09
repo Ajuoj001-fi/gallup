@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const corsMiddleWare = require("restify-cors-middleware");
 
 const cors = corsMiddleWare({
-    "origins" : ["*"],
+    "origins" : ["http://localhost:3000","*"],
     "allowHeaders" : ["Authorization"]
 });
 
