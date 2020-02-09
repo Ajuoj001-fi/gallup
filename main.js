@@ -1,5 +1,12 @@
 const restify = require("restify");
 const crypto = require("crypto");
+const corsMiddleWare = require("restify-cors-middleware");
+
+const cors = corsMiddleWare({
+    "origins" : ["*"],
+    "allowHeaders" : ["Authorization"]
+});
+
 const server = restify.createServer({
     accept: ['application/json', 'text/html']
 });
@@ -8,7 +15,9 @@ const gallups = require("./models/gallups");
 const PORT = (process.env.PORT || 3000);
 
 server.pre(restify.pre.sanitizePath()); 
+server.pre(cors.preflight);
 server.use(restify.plugins.bodyParser());
+server.use(cors.actual);
 
 server.post("/answer", (req,res,next) => {
 
