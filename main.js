@@ -37,7 +37,13 @@ server.post("/answer", (req,res,next) => {
     let key = "uusi";
 
     gallups.setAnswer(key,newData.id,newData.answer,(err,callback) => { //vaihda newData.key -> clientIp / newData.key
-        res.send("ok");
+        
+
+        if(err){
+            res.send("ei");
+        } else {
+            res.send("ok");
+        }
     });
 
 });
