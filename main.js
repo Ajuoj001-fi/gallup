@@ -96,8 +96,8 @@ server.get("/status", (req,res,next) => {
 });
 
 server.post("/login", (req,res,next) => {
-    let user = req.body.user ? req.body.user : "";
-    let pass = crypto.createHash("SHA512").update(req.body.pass).digest("hex") ? req.body.pass : "";
+    let user = req.body.user ? req.body.user : "testi";
+    let pass = crypto.createHash("SHA512").update(req.body.pass).digest("hex") ? req.body.pass : ".";
     let sqlpass;
 
     gallups.login(user,(err,data) => {
