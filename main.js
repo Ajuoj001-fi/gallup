@@ -96,21 +96,35 @@ server.get("/status", (req,res,next) => {
 });
 
 server.post("/login", (req,res,next) => {
-    console.log(req.body.user);
-    let user = req.body.user ? req.body.user : "testi";
-    let pass = crypto.createHash("SHA512").update(req.body.pass).digest("hex") ? req.body.pass : ".";
-    let sqlpass;
+    let user = "";
+    let pass = ""; 
+    if(req.body.user && req.body.pass){
+        user = req.body.user;
+        pass = crypto.createHash("SHA512").update(req.body.pass).digest("hex");
 
-    gallups.login(user,(err,data) => {
-        sqlpass = data[0].pass;
+        let sqlpass;
 
-        if(sqlpass == pass){
-            let access = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex");
-            res.send(access);
-        } else {
-            res.send("error");
-        } 
-    });
+        gallups.login(user,(err,data) => {
+            console.log(data);
+            if(data != ""){
+                sqlpass = data[0].pass;
+
+                if(sqlpass == pass){
+                    let access = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex");
+                    res.send(access);
+                } else {
+                    res.send("login error");
+                } 
+            } else {
+                res.send("no data");
+            }
+
+        });
+    } else {
+        res.send("empty fields");
+    }
+
+
 });
 
 
