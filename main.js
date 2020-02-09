@@ -11,7 +11,7 @@ server.pre(restify.pre.sanitizePath());
 server.use(restify.plugins.bodyParser());
 
 server.post("/answer", (req,res,next) => {
-
+/*
     getClientIp = () => {
         return (req.headers["X-Forwarded-For"] ||
                 req.headers["x-forwarded-for"] ||
@@ -33,12 +33,18 @@ server.post("/answer", (req,res,next) => {
             res.send("olet jo äänestänyt");
         }
 
-    });   
+    });   */
+    let key = "uusi";
+
+    gallups.setAnswer(key,newData.id,newData.answer,(err,callback) => { //vaihda newData.key -> clientIp / newData.key
+        res.send("ok");
+    });
+
 });
 
 server.get("/", (req,res,next) => {
 
-    let body = "<b>/gallup</b> will return JSON  <br> <b>/answer</b> will take .POST {'question_id' : INT, 'answer' : STRING} <br> <b>/status</b> will return the voting situation {answer1: INT,answer2: INT,answer3: INT} <br><br> /allquestions and /allanswers";
+    let body = "<b>/gallup</b> will return JSON  <br> <b>/answer</b> will take .POST {'id' : INT, 'answer' : INT} <br> <b>/status</b> will return the voting situation {answer1: INT,answer2: INT,answer3: INT} <br><br> /allquestions and /allanswers";
     res.writeHead(200, {
         'Content-Length': Buffer.byteLength(body),
         'Content-Type': 'text/html'
