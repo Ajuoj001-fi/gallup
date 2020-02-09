@@ -113,18 +113,19 @@ server.post("/login", (req,res,next) => {
                     let access = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex");
                     res.send(access);
                 } else {
+                    res.status(500);
                     res.send("login error");
                 } 
             } else {
+                res.status(500);
                 res.send("no data");
             }
 
         });
     } else {
+        res.status(500);
         res.send("empty fields");
     }
-
-
 });
 
 
