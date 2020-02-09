@@ -95,6 +95,19 @@ server.get("/status", (req,res,next) => {
     });
 });
 
+server.post("/check", (req,res,next) => {
+    let user = "";
+    if(req.body.user ){
+        user = req.body.user;
+        let hash = crypto.createHash("SHA512").update(salt + user).digest("hex");
+
+        res.send(hash);
+    } else {
+        res.status(500);
+        res.send("empty post");
+    }
+});
+
 server.post("/login", (req,res,next) => {
     let user = "";
     let pass = ""; 
