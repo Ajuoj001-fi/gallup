@@ -11,7 +11,7 @@ server.pre(restify.pre.sanitizePath());
 server.use(restify.plugins.bodyParser());
 
 server.post("/answer", (req,res,next) => {
-/*
+
     getClientIp = () => {
         return (req.headers["X-Forwarded-For"] ||
                 req.headers["x-forwarded-for"] ||
@@ -27,25 +27,17 @@ server.post("/answer", (req,res,next) => {
         if(callback == ""){
 
             gallups.setAnswer(clientIp,newData.id,newData.answer,(err,callback) => { //vaihda newData.key -> clientIp / newData.key
-                res.send("tähän vois ottaa callbakkinä tiedot nykyisestä tilanteesta");
+                        if(err){
+                            res.send("ei");
+                        } else {
+                            res.send("ok");
+                        }
             });
         } else {
             res.send("olet jo äänestänyt");
         }
 
-    });   */
-    let key = "uusi";
-
-    gallups.setAnswer(key,newData.id,newData.answer,(err,callback) => { //vaihda newData.key -> clientIp / newData.key
-        
-
-        if(err){
-            res.send("ei");
-        } else {
-            res.send("ok");
-        }
     });
-
 });
 
 server.get("/", (req,res,next) => {
