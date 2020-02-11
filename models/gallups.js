@@ -88,19 +88,14 @@ module.exports = {
     },
 
     "delete" : (id,username,code,salt,callback) => {
-        console.log("yritän");
-        console.log(code);
         let sql = `SELECT * FROM users WHERE username = ?`;
         let sql2 = `DELETE FROM gallups WHERE gallup_id = ?`;
         connection.query(sql,[username],(err,data)=> {
 
             let check = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex")
-            console.log("yritän2");
-            console.log(check);
             if(check == code){
-                console.log("päästiin");
                 connection.query(sql2,[id],() => {
-                    callback();
+                    callback("poisto onnistui");
                 });
             }
         });
