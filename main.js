@@ -109,7 +109,7 @@ server.post("/check", (req,res,next) => {
 });
 
 server.post("/delete", (req,res,next) => {
-    gallups.delete(req.body.id,req.body.user,req.body.code,this.salt, () => {
+    gallups.delete(req.body.id,req.body.user,req.body.code,salt, () => {
     });
 });
 

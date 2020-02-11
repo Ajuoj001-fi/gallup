@@ -1,6 +1,5 @@
 mysql = require("mysql");
-//mysql://b79a663c3fae1b:14dc545c@eu-cdbr-west-02.cleardb.net/heroku_4f5a858fa0ca67d?reconnect=true
-//
+crypto = require("crypto");
 
 const connection = mysql.createConnection({
     host     : "eu-cdbr-west-02.cleardb.net",
@@ -88,14 +87,21 @@ module.exports = {
                                                     });
     },
 
-    "delete" : (id,username,code,salt) => {
-
+    "delete" : (id,username,code,salt,callback) => {
+        console.log("yritän");
+        console.log(code);
         let sql = `SELECT * FROM users WHERE username = ?`;
         let sql2 = `DELETE FROM gallups WHERE gallup_id = ?`;
         connection.query(sql,[username],(err,data)=> {
+
             let check = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex")
+            console.log("yritän2");
+            console.log(check);
             if(check == code){
-                connection.query(sql2,[id]);
+                console.log("päästiin");
+                connection.query(sql2,[id],() => {
+                    callback();
+                });
             }
         });
     }

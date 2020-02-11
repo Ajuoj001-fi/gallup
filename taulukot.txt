@@ -31,6 +31,12 @@ VALUES (0,'01-02-2020','01-02-2020','Kuka voittaa euroviisut?','Suomi','Ruotsi',
 
 INSERT INTO gallups (active, start_date, end_date, question, answer1, answer2,answer3)
 VALUES (1,'02-02-2020','04-02-2020','Onko koulussa kivaa?','kyllä','ei',NULL);
+INSERT INTO gallups (active, start_date, end_date, question, answer1, answer2,answer3)
+VALUES (0,'02-02-2020','04-02-2020','Onko sinulla kissa?','kyllä','ei',NULL);
+INSERT INTO gallups (active, start_date, end_date, question, answer1, answer2,answer3)
+VALUES (0,'02-02-2020','04-02-2020','Millä autolla ajat?','vw','mersu',NULL);
+INSERT INTO gallups (active, start_date, end_date, question, answer1, answer2,answer3)
+VALUES (0,'02-02-2020','04-02-2020','Oletko työtön?','kyllä','en',NULL);
 
 INSERT INTO answers (user_key, question_id, answer) 
 VALUES('aaa', 1, 1);
