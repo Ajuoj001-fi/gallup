@@ -94,8 +94,8 @@ module.exports = {
 
             let check = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex")
             if(check == code){
-                connection.query(sql2,[id],() => {
-                    callback("poisto onnistui");
+                connection.query(sql2,[id],(err) => {
+                    callback(err);
                 });
             }
         });

@@ -109,7 +109,12 @@ server.post("/check", (req,res,next) => {
 });
 
 server.post("/delete", (req,res,next) => {
-    gallups.delete(req.body.id,req.body.user,req.body.code,salt, () => {
+    gallups.delete(req.body.id,req.body.user,req.body.code,salt, (err) => {
+        if(err){
+            res.send("ei");
+        } else {
+            res.send("ok");
+        }
     });
 });
 
