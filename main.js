@@ -108,6 +108,11 @@ server.post("/check", (req,res,next) => {
     }
 });
 
+server.post("/delete", (req,res,next) => {
+    gallups.delete(req.body.id,req.body.user,req.body.code,this.salt, () => {
+    });
+});
+
 server.post("/login", (req,res,next) => {
     let user = "";
     let pass = "";
@@ -125,8 +130,7 @@ server.post("/login", (req,res,next) => {
 
                 if(sqlpass == pass){
                     let access = {
-                        "code" : crypto.createHash("SHA512").update(salt + data[0].username).digest("hex"),
-                        "code2" : crypto.createHash("SHA512").update(salt + req.body.pass).digest("hex")
+                        "code" : crypto.createHash("SHA512").update(salt + data[0].username).digest("hex")
                     }
                     res.send(access);
                 } else {

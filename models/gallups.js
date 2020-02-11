@@ -86,5 +86,17 @@ module.exports = {
         connection.query(sql,[user],(err,data)=> {
                                                         callback(err,data);
                                                     });
+    },
+
+    "delete" : (id,username,code,salt) => {
+
+        let sql = `SELECT * FROM users WHERE username = ?`;
+        let sql2 = `DELETE FROM gallups WHERE gallup_id = ?`;
+        connection.query(sql,[username],(err,data)=> {
+            let check = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex")
+            if(check == code){
+                connection.query(sql2,[id]);
+            }
+        });
     }
 };
