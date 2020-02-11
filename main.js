@@ -110,7 +110,8 @@ server.post("/check", (req,res,next) => {
 
 server.post("/login", (req,res,next) => {
     let user = "";
-    let pass = ""; 
+    let pass = "";
+    
     if(req.body.user && req.body.pass){
         user = req.body.user;
         pass = crypto.createHash("SHA512").update(req.body.pass).digest("hex");
@@ -123,7 +124,10 @@ server.post("/login", (req,res,next) => {
                 sqlpass = data[0].pass;
 
                 if(sqlpass == pass){
-                    let access = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex");
+                    let access = {
+                        "code" : crypto.createHash("SHA512").update(salt + data[0].user).digest("hex"),
+                        "code2" : crypto.createHash("SHA512").update(salt + data[0].pass).digest("hex")
+                    }
                     res.send(access);
                 } else {
                     res.status(500);
