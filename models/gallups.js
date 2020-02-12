@@ -59,9 +59,15 @@ module.exports = {
         let findActive = `SELECT gallup_id AS id FROM gallups WHERE active = 1`;
         let sql = `SELECT answer, COUNT(*) as total FROM answers WHERE question_id = ? GROUP BY answer`;
         connection.query(findActive, (err, gallups) => {
-            connection.query(sql,[gallups[0].id], (err, data) => {
-                                                    callback(err, data);
-                                                });
+            if(gallups != ""){
+                connection.query(sql,[gallups[0].id], (err, data) => {
+                                                        callback(err, data);
+                                                    });
+            } else{
+                console.log(gallups);
+                let err = "No gallups were found.";
+                callback(err);
+            }
         });
        
     },
