@@ -91,7 +91,12 @@ server.get("/create", (req,res,next) => {
 server.get("/status", (req,res,next) => {
 
     gallups.getStatus((err,data) => {
-        res.send(data);
+        if(!err){
+            res.send(data);
+        } else {
+            res.send("status error");
+        }
+        
     });
 });
 
