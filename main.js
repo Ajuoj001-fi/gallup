@@ -117,7 +117,7 @@ server.get("/status", (req,res,next) => {
                     answer : '2',
                     total : '0'
                 };
-                data.splice(2,0,newData);
+                data.splice(1,0,newData);
             }
 
             res.send(data);   
