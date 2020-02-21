@@ -92,7 +92,21 @@ server.get("/status", (req,res,next) => {
 
     gallups.getStatus((err,data) => {
         if(!err){
-            if(!data[0]){
+            if(data == ""){
+                let newData = [{
+                    answer : '1',
+                    total : '0'
+                },{
+                    answer : '2',
+                    total : '0'
+                },{
+                    answer : '3',
+                    total : '0'
+                }];
+                data.push(newData);
+
+            } else{
+                if(!data[0]){
                 let newData = {
                     answer : '1',
                     total : '0'
@@ -118,7 +132,9 @@ server.get("/status", (req,res,next) => {
                     total : '0'
                 };
                 data.splice(1,0,newData);
+            } 
             }
+
 
             res.send(data);   
         } else {
