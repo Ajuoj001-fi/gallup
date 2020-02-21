@@ -30,14 +30,14 @@ server.post("/answer", (req,res,next) => {
     };
 
     let newData = req.body;
+
     let clientIp = getClientIp();
 
     gallups.checkUnique(clientIp,newData.id,(callback) => {
-
         if(callback == ""){
-
-            gallups.setAnswer(clientIp,newData.id,newData.answer,(err,callback) => { //vaihda newData.key -> clientIp / newData.key
+            gallups.setAnswer(clientIp,newData.id,newData.answer,(err,callback) => {
                         if(err){
+                            console.log(err);
                             res.send("ei");
                         } else {
                             res.send("ok");
@@ -148,10 +148,7 @@ server.post("/addnew", (req,res,next) => {
             }
         });
     }
-    //if req.body.active = 1 -> nollaa eka vanha
-    //UPDATE table_name
-//SET column1 = value1, column2 = value2, ...
-//WHERE condition;
+    
     gallups.addnew(req.body.user,req.body.code,salt,req.body.question,req.body.answer1,req.body.answer2,req.body.answer3,req.body.startDate,req.body.endDate,req.body.active, (err) => {
         if(err){
             res.send("ei lisätty");
