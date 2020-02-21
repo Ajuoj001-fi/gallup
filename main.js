@@ -103,7 +103,7 @@ server.get("/status", (req,res,next) => {
                     answer : '3',
                     total : '0'
                 }];
-                data.push(newData);
+                data = newData;
 
             } else{
                 if(!data[0]){
