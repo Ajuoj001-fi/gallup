@@ -91,7 +91,12 @@ server.get("/create", (req,res,next) => {
 server.get("/status", (req,res,next) => {
 
     gallups.getStatus((err,data) => {
-        res.send(err,data);       
+        if(!err){
+            res.send(data);   
+        } else {
+            res.send(err);   
+        }
+            
     });
 });
 
@@ -114,6 +119,44 @@ server.post("/delete", (req,res,next) => {
             res.send("ei");
         } else {
             res.send("ok");
+        }
+    });
+});
+
+server.post("/setnewactive", (req,res,next) => {
+    gallups.deactive(req.body.user,req.body.code,salt, (err) => {
+        if(err){
+            res.send("aktiivisen poisto epäonnistui");
+        } else{
+            gallups.activate(req.body.id, (err) => {
+                if(err){
+                    res.send("aktivointi epäonnistui");
+                } else{
+                    res.send("ok");
+                }
+            });
+        }
+    });
+});
+
+server.post("/addnew", (req,res,next) => {
+
+    if(req.body.active == '1' ){
+        gallups.deactive(req.body.user,req.body.code,salt, (err) => {
+            if(err){
+                res.send("aktiivisen poisto epäonnistui");
+            }
+        });
+    }
+    //if req.body.active = 1 -> nollaa eka vanha
+    //UPDATE table_name
+//SET column1 = value1, column2 = value2, ...
+//WHERE condition;
+    gallups.addnew(req.body.user,req.body.code,salt,req.body.question,req.body.answer1,req.body.answer2,req.body.answer3,req.body.startDate,req.body.endDate,req.body.active, (err) => {
+        if(err){
+            res.send("ei lisätty");
+        } else {
+            res.send("lisättiin");
         }
     });
 });

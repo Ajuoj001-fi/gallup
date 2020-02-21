@@ -64,7 +64,6 @@ module.exports = {
                                                         callback(err, data);
                                                     });
             } else{
-                console.log(gallups);
                 let err = "No gallups were found.";
                 callback(err);
             }
@@ -105,5 +104,40 @@ module.exports = {
                 });
             }
         });
-    }
+    },
+
+    "addnew" : (username,code,salt,question,ans1,ans2,ans3,startDate,endDate,active,callback) => {
+        let sql = `SELECT * FROM users WHERE username = ?`;
+        let insert = `INSERT INTO gallups (active, start_date, end_date, question, answer1, answer2, answer3) VALUES(?,?,?,?,?,?,?)`;
+
+        connection.query(sql,[username],(err,data)=> {
+
+            let check = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex")
+            if(check == code){
+                console.log("täs");
+                connection.query(insert,[active, startDate, endDate, question, ans1, ans2, ans3],(err) => {
+                    console.log(err);
+                    callback(err);
+                });
+            }
+        });
+    },
+
+    "deactive" : (username,code,salt,callback) => {
+        let deactive = `UPDATE gallups SET active = 0 WHERE active = 1`;
+
+        connection.query(deactive,(err)=> {
+            callback(err);
+        });
+    },
+
+    "activate" : (id,callback) => {
+        let activate = `UPDATE gallups SET active = 1 WHERE gallup_id = ?`;
+
+        connection.query(activate,[id],(err)=> {
+            callback(err);
+        });
+    },
+
+
 };
