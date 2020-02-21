@@ -77,8 +77,12 @@ server.get("/allanswers", (req,res,next) => {
 
 server.get("/gallup", (req,res,next) => {
     gallups.getQuestion((err,data) => {
-       
-        res.send(data);
+        if(!err){
+            res.send(data);
+        } else {
+            res.send("error while searching");
+        }
+        
     });
 });
 
