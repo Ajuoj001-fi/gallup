@@ -77,34 +77,7 @@ server.get("/allanswers", (req,res,next) => {
 
 server.get("/gallup", (req,res,next) => {
     gallups.getQuestion((err,data) => {
-        if(!data[0]){
-            let newData = {
-                answer : '1',
-                total : '0'
-            };
-            data.push(newData);
-        } else if(data[0].answer != '1') {
-            let newData = {
-                answer : '1',
-                total : '0'
-            };
-            data.push(newData);
-        }
-
-        if(!data[1]){
-            let newData = {
-                answer : '2',
-                total : '0'
-            };
-            data.splice(1,0,newData);
-        } else if(data[1].answer != '2') {
-            let newData = {
-                answer : '2',
-                total : '0'
-            };
-            data.splice(2,0,newData);
-        }
-        
+       
         res.send(data);
     });
 });
@@ -119,6 +92,34 @@ server.get("/status", (req,res,next) => {
 
     gallups.getStatus((err,data) => {
         if(!err){
+            if(!data[0]){
+                let newData = {
+                    answer : '1',
+                    total : '0'
+                };
+                data.push(newData);
+            } else if(data[0].answer != '1') {
+                let newData = {
+                    answer : '1',
+                    total : '0'
+                };
+                data.push(newData);
+            }
+    
+            if(!data[1]){
+                let newData = {
+                    answer : '2',
+                    total : '0'
+                };
+                data.splice(1,0,newData);
+            } else if(data[1].answer != '2') {
+                let newData = {
+                    answer : '2',
+                    total : '0'
+                };
+                data.splice(2,0,newData);
+            }
+            
             res.send(data);   
         } else {
             res.send(err);   
