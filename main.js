@@ -103,7 +103,7 @@ server.get("/status", (req,res,next) => {
                     answer : '1',
                     total : '0'
                 };
-                data.push(newData);
+                data.splice(0,0,newData);
             }
     
             if(!data[1]){
@@ -119,7 +119,7 @@ server.get("/status", (req,res,next) => {
                 };
                 data.splice(2,0,newData);
             }
-            
+
             res.send(data);   
         } else {
             res.send(err);   
