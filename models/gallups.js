@@ -111,10 +111,8 @@ module.exports = {
         let insert = `INSERT INTO gallups (active, start_date, end_date, question, answer1, answer2, answer3) VALUES(?,?,?,?,?,?,?)`;
 
         connection.query(sql,[username],(err,data)=> {
-
             let check = crypto.createHash("SHA512").update(salt + data[0].username).digest("hex")
             if(check == code){
-                console.log("täs");
                 connection.query(insert,[active, startDate, endDate, question, ans1, ans2, ans3],(err) => {
                     console.log(err);
                     callback(err);
