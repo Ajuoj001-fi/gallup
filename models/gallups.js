@@ -1,7 +1,7 @@
 mysql = require("mysql");
 crypto = require("crypto");
 
-const connection ={
+const config ={
     host     : "eu-cdbr-west-02.cleardb.net",
     user     : "b79a663c3fae1b",
     password : "14dc545c",
@@ -10,7 +10,7 @@ const connection ={
 
 
 handleDisconnect = () => {
-    connection = mysql.createConnection(connection);
+    connection = mysql.createConnection(config);
 
     connection.connect((err) => {
         if(err){
