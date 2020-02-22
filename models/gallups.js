@@ -1,34 +1,35 @@
 mysql = require("mysql");
 crypto = require("crypto");
 
-const connection = mysql.createConnection({
+const connection ={
     host     : "eu-cdbr-west-02.cleardb.net",
     user     : "b79a663c3fae1b",
     password : "14dc545c",
     database : "heroku_4f5a858fa0ca67d"
-});
+};
 
 
 handleDisconnect = () => {
+    connection = mysql.createConnection(connection);
+
+    connection.connect((err) => {
+        if(err){
+            console.log('error when connecting to db:', err);
+            setTimeout(handleDisconnect, 2000);
+        }
+    });
 
     connection.on('error', (err) => {
-        if (!err.fatal) {
-          return;
-        }
-    
-        if (err.code !== 'PROTOCOL_CONNECTION_LOST') {
+        console.log('db error', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+            handleDisconnect();
+        } else{
           throw err;
-        }
-    
-        console.log('Re-connecting lost connection: ' + err.stack);
-    
-        connection = mysql.createConnection(connection.config);
-        handleDisconnect(connection);
-        connection.connect();
+        }        
     });
 }
 
-handleDisconnect(connection);
+handleDisconnect();
 
 module.exports = {
 
